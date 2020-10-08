@@ -13,7 +13,7 @@ and open the template in the editor.
         <?php
         // put your code here
         ?>
-        <h1>Formulário do usuário</h1>
+        <h1>Formulário do usuário</h1>       
         <hr>
 <!--        envia dados para a função salvar do controlador usuário-->
         <form method="post" action="<?php echo site_url("usuario/salvar")?>">

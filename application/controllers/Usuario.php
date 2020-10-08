@@ -11,20 +11,39 @@ class Usuario extends CI_Controller{
     }
     
 
-    public function index(){
+    public function adicionar(){
         $this->load->view("usuario/formulario");
     }
     
     public function salvar(){
         #Do usuario model carregado chama o método inserir
-        $this->usuario_model->inserir();
+        $this->usuario->inserir();
+        redirect(site_url("usuario/index"));
     }
     
-    public function listar(){
+    public function index(){
         //buscar os dados do banco de dados por meio do modelo
         $resultado = $this->usuario->obterTodos();
-        $this->load->view("usuario/lista");
+        
+        $vetor["usuarios"] = $resultado;
+        $vetor["titulo"] = "Usuários cadastrados no banco de dados";
+        
+        $this->load->view("usuario/lista", $vetor);
+    }
+    
+    public function excluir($codigo){
+        $this->usuario->deletar($codigo);
+        redirect(site_url("usuario/index"));
+    }
+    
+    public function form_edit($codigo){
+        $vetor["usuario"] = $this->usuario->pegarUsuarioPorId($codigo);
+        $this->load->view("usuario/form_edit", $vetor);
+    }
+    
+    public function atualizar(){
+        $this->usuario->update();
+        redirect(site_url("usuario/index"));
     }
     
 }
-    
